@@ -46,6 +46,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'product/<id:\d+>' => 'product/view',//Указываем урл для пагинации по категориям
+                'category/<id:\d+>/page/<page:\d+>' => 'category/view',//Указываем урл для пагинации по категориям
                 'category/<id:\d+>' => 'category/view',//Указываем урл для меню категории
             ],
         ],

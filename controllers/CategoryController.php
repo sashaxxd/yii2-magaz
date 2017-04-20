@@ -29,7 +29,7 @@ class CategoryController extends AppController
         //Debug($id);
         //$products = Product::find()->where(['category_id' => $id])->all();
         $query = Product::find()->where(['category_id' => $id]);//Делаем выборку из базы
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);//Для пагинации новый объект
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam' => false, 'pageSizeParam' => false]);//Для пагинации новый объект
         //указываем количество записей
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
