@@ -10,6 +10,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use Yii;
+use yii\data\Pagination;
 
 
 class CategoryController extends AppController
@@ -26,11 +27,17 @@ class CategoryController extends AppController
     {
         $id = Yii::$app->request->get('id');
         //Debug($id);
-        $products = Product::find()->where(['category_id' => $id])->all();
+        //$products = Product::find()->where(['category_id' => $id])->all();
+        $query = Product::find()->where(['category_id' => $id]);//Делаем выборку из базы
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);//Для пагинации новый объект
+        //указываем количество записей
+        $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+
         $category = Category::findOne($id);
         $this->setMeta('Название магазина | ' . $category->name, $category->keywords, $category->description);
-        return $this->render('view', compact('products','category'));
+        return $this->render('view', compact('products','pages','category'));
     }
-    
+
 
 }
