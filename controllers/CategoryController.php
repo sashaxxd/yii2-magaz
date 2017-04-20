@@ -26,6 +26,13 @@ class CategoryController extends AppController
     public  function actionView($id)
     {
         $id = Yii::$app->request->get('id');
+
+        $category = Category::findOne($id);
+         if(empty($category))
+         {
+             throw new \yii\web\HttpException(404, 'Нет такой страницы');
+         }
+
         //Debug($id);
         //$products = Product::find()->where(['category_id' => $id])->all();
         $query = Product::find()->where(['category_id' => $id]);//Делаем выборку из базы
@@ -34,8 +41,8 @@ class CategoryController extends AppController
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
-        $category = Category::findOne($id);
-        $this->setMeta('Название магазина | ' . $category->name, $category->keywords, $category->description);
+
+        $this->setMeta('Название магазина | ' . $products->name, $products->keywords, $products->description);
         return $this->render('view', compact('products','pages','category'));
     }
 
