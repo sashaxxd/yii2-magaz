@@ -92,9 +92,10 @@ use \yii\helpers\Html;
                     </div>
                             <?php $i++?>
                             <?php if($i % 3 == 0): ?>
-                                <div class="clearfix"></div>
+
                             <?php endif;?>
                             <?php  endforeach?>
+                        <div class="clearfix"></div>
                         <?php
                         // Выводим пагинацию в представленни с помощью виджета линк-пайджер
                         // Класс pagination определяется автоматическии
